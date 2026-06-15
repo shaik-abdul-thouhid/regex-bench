@@ -62,11 +62,19 @@ echo "==> recording environment"
   echo "zig=$(zig version 2>/dev/null || echo '?')"
   echo "rustc=$(rustc --version 2>/dev/null | sed 's/rustc //' || echo '?')"
   echo "go=$(go version 2>/dev/null | sed 's/go version //' || echo '?')"
-  reg=$(grep -A1 'name = "regex"' rust/Cargo.lock 2>/dev/null | grep version | head -1 | sed 's/.*"\(.*\)".*/regex \1/')
+  reg=$(grep -A1 'name = "regex"' rust/Cargo.lock 2>/dev/null | grep version | head -1 | sed 's/.*"\(.*\)".*/regex \1/' || true)
   echo "regex=${reg:-?}"
-  # Pinned engine commit, read from THIS repo's dependency manifest (self-contained — no local
-  # ezi_gex checkout required). Shows the short commit the benchmark was built against.
-  ezicommit=$(grep -m1 'ezi-gex.git?ref=' zig/build.zig.zon 2>/dev/null | sed 's/.*#\([0-9a-f]*\).*/\1/' | cut -c1-12)
+  # Pinned engine commit. The manifest pins ezi_gex either by a git URL (…ezi-gex.git?ref=…#<sha>)
+  # or, temporarily, by a local `.path`; try the URL first, else read the short SHA from the
+  # path's checkout. The trailing `|| true` is essential — a non-matching grep exits non-zero and
+  # would otherwise abort the whole run under `set -e`/`pipefail`.
+  ezicommit=$(grep -m1 'ezi-gex.git?ref=' zig/build.zig.zon 2>/dev/null | sed 's/.*#\([0-9a-f]*\).*/\1/' | cut -c1-12 || true)
+  if [[ -z "$ezicommit" ]]; then
+    ezipath=$(grep -m1 '\.path = ' zig/build.zig.zon 2>/dev/null | sed 's/.*"\(.*\)".*/\1/' || true)
+    if [[ -n "$ezipath" ]]; then
+      ezicommit=$(git -C "zig/$ezipath" rev-parse --short=12 HEAD 2>/dev/null || true)
+    fi
+  fi
   echo "ezi_gex=${ezicommit:+git ${ezicommit}}"
 } > results/meta.txt
 
