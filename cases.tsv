@@ -1,0 +1,58 @@
+# Regex benchmark cases — three-way parity (ezi_gex vs Rust `regex` vs Go `regexp`).
+#
+# Tab-separated columns:
+#   1. name        unique case id
+#   2. corpora     comma-separated haystack names (no .txt) the case runs on
+#   3. pattern     the DEFAULT regex string, fed verbatim to every engine
+#   4+. overrides  optional "engine:pattern" (engine in {ezi,go,rust}) for the rare
+#                  case where one engine spells the SAME language differently. The
+#                  runtime match-count cross-check proves the variants are equivalent.
+#
+# Parity rules baked into the corpus mapping (so all three engines agree on the
+# non-overlapping match COUNT — the built-in correctness check):
+#   * Perl classes \w \d \s and \b are Unicode in Rust/ezi_gex but ASCII in Go
+#     (RE2). They are therefore only used on PURE-ASCII corpora (logs; sherlock for
+#     \d and \b-of-an-ASCII-literal, both verified to agree). Unicode word scans use
+#     \p{L}/\p{N}, which are Unicode in all three.
+#   * Bare script names \p{Han}/\p{Cyrillic} are accepted by Go and Rust; ezi_gex
+#     spells them \p{Script=...} (the override column).
+#
+# name              corpora                              pattern                                         overrides
+
+# ── Literal & alternation search (memchr / Teddy territory) ──────────────────
+lit_sherlock	sherlock	Sherlock
+lit_the	sherlock	the
+lit_phrase	sherlock	Sherlock Holmes
+alt_names	sherlock	Sherlock|Holmes|Watson|Mycroft|Lestrade|Moriarty
+
+# ── Case-insensitive ─────────────────────────────────────────────────────────
+ci_the	sherlock	(?i)the
+ci_phrase	sherlock	(?i)sherlock holmes
+ci_ru	subtitles-ru	(?i)что
+
+# ── Word-boundary literal (ASCII literal → \b agrees across engines) ──────────
+bword_the	sherlock,logs	\bthe\b
+
+# ── Character-class / word scans (tokenization) ──────────────────────────────
+letters_uni	sherlock,subtitles-ru,subtitles-zh	\p{L}+
+numbers_uni	sherlock,subtitles-ru,subtitles-zh	\p{N}+
+cap_word	sherlock,subtitles-ru	\p{Lu}\p{Ll}+
+alpha_ascii	sherlock,logs	[A-Za-z]+
+digits	sherlock,logs	\d+
+words_perl	logs	\w+
+word_boundary	logs	\b\w+\b
+
+# ── Unicode scripts (ezi_gex spells these \p{Script=...}) ────────────────────
+script_cyrillic	subtitles-ru	\p{Cyrillic}+	ezi:\p{Script=Cyrillic}+
+script_han	subtitles-zh	\p{Han}+	ezi:\p{Script=Han}+
+
+# ── Prose / proximity ────────────────────────────────────────────────────────
+near	sherlock	Holmes.{0,30}Watson|Watson.{0,30}Holmes
+the_word	sherlock	the\s+\p{L}+
+
+# ── Real-world data extraction (log parsing / PII) ───────────────────────────
+ipv4	logs	(?:\d{1,3}\.){3}\d{1,3}
+date_iso	logs	\d{4}-\d{2}-\d{2}
+email	logs	[\w.+-]+@[\w-]+\.[\w.-]+
+uri	logs	https?://[^\s"]+
+log_line	logs	(?m)^(\S+) \S+ \S+ \[([^\]]+)\] "(\w+) ([^"]*)" (\d{3}) (\d+)

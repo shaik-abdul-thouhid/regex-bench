@@ -1,0 +1,7 @@
+cpu=Apple M4
+os=Darwin 25.5.0
+zig=0.17.0-dev.857+2b2b85c5f
+rustc=1.96.0 (ac68faa20 2026-05-25)
+go=go1.26.4 darwin/arm64
+regex=regex 1.12.4
+ezi_gex=git 881f99459007

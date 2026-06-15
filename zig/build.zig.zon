@@ -1,0 +1,19 @@
+.{
+    .name = .regex_bench,
+    .version = "0.1.0",
+    .fingerprint = 0xd8abe70eb237c64a,
+    .minimum_zig_version = "0.17.0-dev.836",
+    .dependencies = .{
+        // The published engine, fetched from GitHub (content-addressed) so anyone can reproduce
+        // this benchmark without a local checkout. Bump the `#<commit>` to measure a newer build.
+        .ezi_gex = .{
+            .url = "git+https://github.com/shaik-abdul-thouhid/ezi-gex.git?ref=main#881f994590072f339e6b9e18940ba033ebe3c6d9",
+            .hash = "ezi_gex-0.4.0-dev-fTQAPB1KFQCMkrVEEsceDCrXloEyG0Of8i3NtzbdfcsB",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "main.zig",
+    },
+}

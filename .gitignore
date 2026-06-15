@@ -1,0 +1,14 @@
+# Build artifacts
+zig/.zig-cache/
+zig/zig-out/
+zig/zig-pkg/
+rust/target/
+go/go-runner
+results/.bin/
+
+# Corpora are provisioned by `python3 corpus.py` (run.sh runs it first) — downloaded/generated,
+# not committed (keeps the repo lean and avoids re-hosting the OpenSubtitles samples).
+corpus/
+
+# Committed as a sample run: cases.tsv, results/{zig,rust,go}.tsv, results/REPORT.md, results/meta.txt
+results/*.log
