@@ -4,10 +4,10 @@ A like-for-like, three-way throughput + compile-time comparison on **real**, byt
 
 ## Environment
 
-- **When:** 2026-06-15 19:40 UTC
+- **When:** 2026-06-16 20:02 UTC
 - **CPU:** Apple M4
 - **OS:** Darwin 25.5.0
-- **ezi_gex:** git 0c92160c477c (Zig 0.17.0-dev.857+2b2b85c5f, ReleaseFast)
+- **ezi_gex:** git 87db38e1b674 (Zig 0.17.0-dev.864+3deb86baf, ReleaseFast)
 - **Rust `regex`:** regex 1.12.4 (1.96.0 (ac68faa20 2026-05-25), release + LTO, edition 2024)
 - **Go `regexp`:** go1.26.4 darwin/arm64 (stdlib RE2)
 
@@ -27,53 +27,53 @@ A like-for-like, three-way throughput + compile-time comparison on **real**, byt
 
 | pattern | regex | matches | ezi_gex | Rust | Go | fastest |
 |---|---|---|---|---|---|---|
-| lit_sherlock | `Sherlock` | 97 | **40.30 GiB/s** | 38.54 GiB/s | 18.32 GiB/s | ezi_gex |
-| lit_the | `the` | 7,218 | **6.23 GiB/s** | 5.97 GiB/s | 489.5 MiB/s | ezi_gex |
-| lit_phrase | `Sherlock Holmes` | 91 | **40.79 GiB/s** | 39.46 GiB/s | 14.84 GiB/s | ezi_gex |
-| alt_names | `Sherlock\|Holmes\|Watson\|Mycroft\|Lestrad…` | 677 | 6.89 GiB/s | **7.90 GiB/s** | 20.5 MiB/s | Rust |
-| ci_the | `(?i)the` | 7,987 | 1.69 GiB/s | **1.99 GiB/s** | 61.2 MiB/s | Rust |
-| ci_phrase | `(?i)sherlock holmes` | 96 | 6.91 GiB/s | **9.95 GiB/s** | 53.6 MiB/s | Rust |
-| bword_the | `\bthe\b` | 5,426 | **3.33 GiB/s** | 3.15 GiB/s | 74.7 MiB/s | ezi_gex |
-| letters_uni | `\p{L}+` | 108,992 | 190.1 MiB/s | **205.7 MiB/s** | 26.6 MiB/s | Rust |
-| numbers_uni | `\p{N}+` | 253 | **18.89 GiB/s** | 3.04 GiB/s | 53.9 MiB/s | ezi_gex |
-| cap_word | `\p{Lu}\p{Ll}+` | 9,451 | 411.2 MiB/s | **632.8 MiB/s** | 44.2 MiB/s | Rust |
-| alpha_ascii | `[A-Za-z]+` | 109,000 | 183.0 MiB/s | **208.9 MiB/s** | 32.6 MiB/s | Rust |
-| digits | `\d+` | 253 | **18.81 GiB/s** | 3.03 GiB/s | 79.7 MiB/s | ezi_gex |
-| near | `Holmes.{0,30}Watson\|Watson.{0,30}Holmes` | 7 | 5.41 GiB/s | **7.47 GiB/s** | 53.1 MiB/s | Rust |
-| the_word | `the\s+\p{L}+` | 5,404 | 854.3 MiB/s | **2.05 GiB/s** | 266.9 MiB/s | Rust |
+| lit_sherlock | `Sherlock` | 97 | **40.67 GiB/s** | 38.43 GiB/s | 18.22 GiB/s | ezi_gex |
+| lit_the | `the` | 7,218 | 6.61 GiB/s | **6.82 GiB/s** | 490.2 MiB/s | Rust |
+| lit_phrase | `Sherlock Holmes` | 91 | **41.30 GiB/s** | 39.34 GiB/s | 14.79 GiB/s | ezi_gex |
+| alt_names | `Sherlock\|Holmes\|Watson\|Mycroft\|Lestrad…` | 677 | 7.38 GiB/s | **7.93 GiB/s** | 20.7 MiB/s | Rust |
+| ci_the | `(?i)the` | 7,987 | 1.69 GiB/s | **2.11 GiB/s** | 63.3 MiB/s | Rust |
+| ci_phrase | `(?i)sherlock holmes` | 96 | 6.97 GiB/s | **9.91 GiB/s** | 54.7 MiB/s | Rust |
+| bword_the | `\bthe\b` | 5,426 | 3.17 GiB/s | **3.41 GiB/s** | 75.9 MiB/s | Rust |
+| letters_uni | `\p{L}+` | 108,992 | 185.0 MiB/s | **209.3 MiB/s** | 26.6 MiB/s | Rust |
+| numbers_uni | `\p{N}+` | 253 | **19.00 GiB/s** | 3.03 GiB/s | 53.6 MiB/s | ezi_gex |
+| cap_word | `\p{Lu}\p{Ll}+` | 9,451 | 507.1 MiB/s | **695.4 MiB/s** | 44.6 MiB/s | Rust |
+| alpha_ascii | `[A-Za-z]+` | 109,000 | 195.2 MiB/s | **200.9 MiB/s** | 32.6 MiB/s | Rust |
+| digits | `\d+` | 253 | **19.13 GiB/s** | 3.04 GiB/s | 82.3 MiB/s | ezi_gex |
+| near | `Holmes.{0,30}Watson\|Watson.{0,30}Holmes` | 7 | 5.40 GiB/s | **7.47 GiB/s** | 56.7 MiB/s | Rust |
+| the_word | `the\s+\p{L}+` | 5,404 | 769.3 MiB/s | **2.28 GiB/s** | 258.2 MiB/s | Rust |
 
 ### `subtitles-ru` (613,423 bytes)
 
 | pattern | regex | matches | ezi_gex | Rust | Go | fastest |
 |---|---|---|---|---|---|---|
-| ci_ru | `(?i)что` | 1,285 | 4.05 GiB/s | **6.30 GiB/s** | 57.4 MiB/s | Rust |
-| letters_uni | `\p{L}+` | 56,496 | 265.1 MiB/s | **286.6 MiB/s** | 45.0 MiB/s | Rust |
-| numbers_uni | `\p{N}+` | 303 | 1.22 GiB/s | **3.05 GiB/s** | 92.6 MiB/s | Rust |
-| cap_word | `\p{Lu}\p{Ll}+` | 12,682 | 334.8 MiB/s | **540.9 MiB/s** | 68.1 MiB/s | Rust |
-| script_cyrillic | `\p{Cyrillic}+` | 56,493 | 265.7 MiB/s | **288.9 MiB/s** | 51.8 MiB/s | Rust |
+| ci_ru | `(?i)что` | 1,285 | 4.49 GiB/s | **6.23 GiB/s** | 56.5 MiB/s | Rust |
+| letters_uni | `\p{L}+` | 56,496 | 266.1 MiB/s | **290.8 MiB/s** | 45.1 MiB/s | Rust |
+| numbers_uni | `\p{N}+` | 303 | 1.38 GiB/s | **3.05 GiB/s** | 91.5 MiB/s | Rust |
+| cap_word | `\p{Lu}\p{Ll}+` | 12,682 | 338.8 MiB/s | **548.9 MiB/s** | 67.0 MiB/s | Rust |
+| script_cyrillic | `\p{Cyrillic}+` | 56,493 | 263.9 MiB/s | **289.8 MiB/s** | 51.9 MiB/s | Rust |
 
 ### `logs` (600,225 bytes)
 
 | pattern | regex | matches | ezi_gex | Rust | Go | fastest |
 |---|---|---|---|---|---|---|
-| bword_the | `\bthe\b` | 260 | 25.03 GiB/s | **25.95 GiB/s** | 77.5 MiB/s | Rust |
-| alpha_ascii | `[A-Za-z]+` | 67,976 | 324.6 MiB/s | **447.7 MiB/s** | 41.3 MiB/s | Rust |
-| digits | `\d+` | 59,966 | **591.4 MiB/s** | 474.1 MiB/s | 46.9 MiB/s | ezi_gex |
-| words_perl | `\w+` | 117,413 | 280.0 MiB/s | **344.3 MiB/s** | 29.0 MiB/s | Rust |
-| word_boundary | `\b\w+\b` | 117,413 | 224.0 MiB/s | **397.7 MiB/s** | 25.2 MiB/s | Rust |
-| ipv4 | `(?:\d{1,3}\.){3}\d{1,3}` | 3,153 | 418.4 MiB/s | **698.6 MiB/s** | 49.8 MiB/s | Rust |
-| date_iso | `\d{4}-\d{2}-\d{2}` | 1,248 | **8.07 GiB/s** | 5.87 GiB/s | 59.4 MiB/s | ezi_gex |
-| email | `[\w.+-]+@[\w-]+\.[\w.-]+` | 1,248 | 4.39 GiB/s | **7.02 GiB/s** | 44.8 MiB/s | Rust |
-| uri | `https?://[^\s"]+` | 2,902 | 1.97 GiB/s | **2.20 GiB/s** | 265.9 MiB/s | Rust |
-| log_line | `(?m)^(\S+) \S+ \S+ \[([^\]]+)\] "(\w+)…` | 1,905 | 984.3 MiB/s | **1.30 GiB/s** | 69.2 MiB/s | Rust |
+| bword_the | `\bthe\b` | 260 | 27.66 GiB/s | **28.36 GiB/s** | 77.6 MiB/s | Rust |
+| alpha_ascii | `[A-Za-z]+` | 67,976 | 367.8 MiB/s | **446.5 MiB/s** | 41.0 MiB/s | Rust |
+| digits | `\d+` | 59,966 | **586.8 MiB/s** | 473.7 MiB/s | 47.1 MiB/s | ezi_gex |
+| words_perl | `\w+` | 117,413 | 282.7 MiB/s | **347.6 MiB/s** | 29.3 MiB/s | Rust |
+| word_boundary | `\b\w+\b` | 117,413 | 230.2 MiB/s | **398.2 MiB/s** | 25.6 MiB/s | Rust |
+| ipv4 | `(?:\d{1,3}\.){3}\d{1,3}` | 3,153 | 426.7 MiB/s | **700.2 MiB/s** | 49.3 MiB/s | Rust |
+| date_iso | `\d{4}-\d{2}-\d{2}` | 1,248 | **8.82 GiB/s** | 6.36 GiB/s | 60.1 MiB/s | ezi_gex |
+| email | `[\w.+-]+@[\w-]+\.[\w.-]+` | 1,248 | 4.42 GiB/s | **6.80 GiB/s** | 42.8 MiB/s | Rust |
+| uri | `https?://[^\s"]+` | 2,902 | 1.96 GiB/s | **2.19 GiB/s** | 262.0 MiB/s | Rust |
+| log_line | `(?m)^(\S+) \S+ \S+ \[([^\]]+)\] "(\w+)…` | 1,905 | 979.1 MiB/s | **1.30 GiB/s** | 69.6 MiB/s | Rust |
 
 ### `subtitles-zh` (613,427 bytes)
 
 | pattern | regex | matches | ezi_gex | Rust | Go | fastest |
 |---|---|---|---|---|---|---|
-| letters_uni | `\p{L}+` | 46,847 | 293.9 MiB/s | **377.2 MiB/s** | 55.9 MiB/s | Rust |
-| numbers_uni | `\p{N}+` | 6,811 | 672.5 MiB/s | **1.00 GiB/s** | 96.5 MiB/s | Rust |
-| script_han | `\p{Han}+` | 26,657 | 388.6 MiB/s | **446.3 MiB/s** | 78.1 MiB/s | Rust |
+| letters_uni | `\p{L}+` | 46,847 | 299.2 MiB/s | **376.7 MiB/s** | 54.9 MiB/s | Rust |
+| numbers_uni | `\p{N}+` | 6,811 | 839.6 MiB/s | **1.01 GiB/s** | 95.0 MiB/s | Rust |
+| script_han | `\p{Han}+` | 26,657 | 397.1 MiB/s | **447.0 MiB/s** | 77.1 MiB/s | Rust |
 
 ## Compile time (median — lower is better)
 
@@ -81,30 +81,30 @@ Time to build the matcher object from the pattern string (engine construction; f
 
 | pattern | regex | ezi_gex | Rust | Go |
 |---|---|---|---|---|
-| lit_sherlock | `Sherlock` | 833 ns | 1.25 µs | 500 ns |
-| lit_the | `the` | 625 ns | 875 ns | 333 ns |
-| lit_phrase | `Sherlock Holmes` | 958 ns | 1.67 µs | 667 ns |
-| alt_names | `Sherlock\|Holmes\|Watson\|Mycroft\|Lestrad…` | 1.50 µs | 19.21 µs | 1.75 µs |
-| ci_the | `(?i)the` | 26.29 µs | 13.00 µs | 292 ns |
-| ci_phrase | `(?i)sherlock holmes` | 137.42 µs | 56.83 µs | 625 ns |
-| ci_ru | `(?i)что` | 32.79 µs | 30.04 µs | 375 ns |
-| bword_the | `\bthe\b` | 3.12 µs | 5.00 µs | 416 ns |
-| letters_uni | `\p{L}+` | 31.94 ms | 107.83 µs | 2.62 µs |
-| numbers_uni | `\p{N}+` | 956.42 µs | 34.25 µs | 750 ns |
-| cap_word | `\p{Lu}\p{Ll}+` | 10.11 ms | 135.71 µs | 4.67 µs |
-| alpha_ascii | `[A-Za-z]+` | 2.21 µs | 3.12 µs | 250 ns |
-| digits | `\d+` | 98.71 µs | 22.58 µs | 209 ns |
-| words_perl | `\w+` | 45.15 ms | 121.08 µs | 250 ns |
-| word_boundary | `\b\w+\b` | 47.58 ms | 161.67 µs | 417 ns |
-| script_cyrillic | `\p{Cyrillic}+` | 20.67 µs | 15.79 µs | 333 ns |
-| script_han | `\p{Han}+` | 156.42 µs | 20.00 µs | 375 ns |
-| near | `Holmes.{0,30}Watson\|Watson.{0,30}Holmes` | 127.50 µs | 111.21 µs | 5.29 µs |
-| the_word | `the\s+\p{L}+` | 107.43 ms | 109.92 µs | 3.08 µs |
-| ipv4 | `(?:\d{1,3}\.){3}\d{1,3}` | 1.06 ms | 127.04 µs | 1.08 µs |
-| date_iso | `\d{4}-\d{2}-\d{2}` | 701.50 µs | 112.71 µs | 833 ns |
-| email | `[\w.+-]+@[\w-]+\.[\w.-]+` | 6.37 ms | 423.50 µs | 958 ns |
-| uri | `https?://[^\s"]+` | 54.42 µs | 18.62 µs | 750 ns |
-| log_line | `(?m)^(\S+) \S+ \S+ \[([^\]]+)\] "(\w+)…` | 47.58 ms | 252.46 µs | 2.38 µs |
+| lit_sherlock | `Sherlock` | 792 ns | 1.71 µs | 500 ns |
+| lit_the | `the` | 709 ns | 1.17 µs | 333 ns |
+| lit_phrase | `Sherlock Holmes` | 1.00 µs | 2.12 µs | 667 ns |
+| alt_names | `Sherlock\|Holmes\|Watson\|Mycroft\|Lestrad…` | 1.62 µs | 20.92 µs | 1.83 µs |
+| ci_the | `(?i)the` | 26.17 µs | 14.12 µs | 333 ns |
+| ci_phrase | `(?i)sherlock holmes` | 137.75 µs | 62.29 µs | 625 ns |
+| ci_ru | `(?i)что` | 32.17 µs | 32.42 µs | 375 ns |
+| bword_the | `\bthe\b` | 3.50 µs | 5.75 µs | 417 ns |
+| letters_uni | `\p{L}+` | 621.25 µs | 118.79 µs | 2.67 µs |
+| numbers_uni | `\p{N}+` | 128.33 µs | 37.75 µs | 750 ns |
+| cap_word | `\p{Lu}\p{Ll}+` | 568.29 µs | 149.04 µs | 4.71 µs |
+| alpha_ascii | `[A-Za-z]+` | 2.42 µs | 3.71 µs | 250 ns |
+| digits | `\d+` | 43.46 µs | 24.54 µs | 209 ns |
+| words_perl | `\w+` | 847.69 µs | 133.75 µs | 250 ns |
+| word_boundary | `\b\w+\b` | 1.23 ms | 174.42 µs | 417 ns |
+| script_cyrillic | `\p{Cyrillic}+` | 13.58 µs | 16.71 µs | 333 ns |
+| script_han | `\p{Han}+` | 33.67 µs | 21.42 µs | 375 ns |
+| near | `Holmes.{0,30}Watson\|Watson.{0,30}Holmes` | 229.00 µs | 126.54 µs | 5.33 µs |
+| the_word | `the\s+\p{L}+` | 583.83 µs | 122.29 µs | 3.08 µs |
+| ipv4 | `(?:\d{1,3}\.){3}\d{1,3}` | 595.21 µs | 148.33 µs | 1.12 µs |
+| date_iso | `\d{4}-\d{2}-\d{2}` | 421.92 µs | 128.38 µs | 833 ns |
+| email | `[\w.+-]+@[\w-]+\.[\w.-]+` | 832.96 µs | 464.79 µs | 958 ns |
+| uri | `https?://[^\s"]+` | 29.67 µs | 20.21 µs | 750 ns |
+| log_line | `(?m)^(\S+) \S+ \S+ \[([^\]]+)\] "(\w+)…` | 1.13 ms | 279.71 µs | 2.38 µs |
 
 ## Summary
 
@@ -112,8 +112,8 @@ Search speed relative to **ezi_gex** (geometric mean over all shared cells; `>1.
 
 | engine | geomean speed vs ezi_gex | cells fastest |
 |---|--:|--:|
-| ezi_gex | 1.00× | 8 / 32 |
-| Rust | 1.12× | 24 / 32 |
+| ezi_gex | 1.00× | 6 / 32 |
+| Rust | 1.10× | 26 / 32 |
 | Go | 0.05× | 0 / 32 |
 
 > Throughput drifts run-to-run with thermal/background load; read these as directional, not to 3 sig figs. The match-count cross-check above is exact.
