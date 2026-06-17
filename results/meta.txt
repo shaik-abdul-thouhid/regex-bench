@@ -4,4 +4,4 @@ zig=0.17.0-dev.864+3deb86baf
 rustc=1.96.0 (ac68faa20 2026-05-25)
 go=go1.26.4 darwin/arm64
 regex=regex 1.12.4
-ezi_gex=git 87db38e1b674
+ezi_gex=git 92b7f73212b5

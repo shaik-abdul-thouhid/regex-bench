@@ -7,8 +7,8 @@
         // The published engine, fetched from GitHub (content-addressed) so anyone can reproduce
         // this benchmark without a local checkout. Bump the `#<commit>` to measure a newer build.
         .ezi_gex = .{
-            .url = "git+https://github.com/shaik-abdul-thouhid/ezi-gex.git?ref=v0.5.0#87db38e1b674b68674c4d2f9099017d2e698513d",
-            .hash = "ezi_gex-0.5.0-fTQAPJK_GADb3D__C0PC7HJXO9aYMv7w8PDyNh6kNWzc",
+            .url = "git+https://github.com/shaik-abdul-thouhid/ezi-gex.git?ref=v0.5.1#92b7f73212b5b1aca3837980ea1de2f565bc680d",
+            .hash = "ezi_gex-0.5.1-fTQAPEpTGQB-qNul2Ctf-ml9RGfP2QPGbphIunj8yMyU",
         },
     },
     .paths = .{
